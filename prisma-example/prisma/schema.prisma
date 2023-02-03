@@ -10,28 +10,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Recipes {
+  id         Int          @id @default(autoincrement())
+  name       String //@default(now())
+  link       String //@updatedAt
+  picture    String
+  ing_in_rec Ing_In_Rec[]
+
+  liked Liked[]
+
+  // @db.VarChar(255) Link som string ?
+  // content   String?
+  // published Boolean  @default(false)
+  // author    User     @relation(fields: [authorId], references: [id])
+  // authorId  Int
 }
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+model Ingredients {
+  id         Int          @id @default(autoincrement())
+  name       String
+  ing_in_rec Ing_In_Rec[]
+
+  // user   User    @relation(fields: [userId], references: [id])
+  // userId Int     @unique
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
-  profile Profile?
+model Users {
+  id       Int     @id @default(autoincrement())
+  username String  @unique
+  password String
+  liked    Liked[]
+  // name    String?
+  // posts   Post[]
+  // profile Profile?
+}
+
+model Liked {
+  user_id   Int //@default(autoincrement())
+  recipe_id Int
+
+  recipes Recipes @relation(fields: [recipe_id], references: [id])
+  users   Users   @relation(fields: [user_id], references: [id])
+
+  // name    String?
+  // posts   Post[]
+  // profile Profile?
+
+  @@id([user_id, recipe_id])
+}
+
+model Ing_In_Rec {
+  recipe_id      Int
+  ingredients_id Int
+
+  recipes     Recipes     @relation(fields: [recipe_id], references: [id])
+  ingredients Ingredients @relation(fields: [ingredients_id], references: [id])
+
+  @@id([recipe_id, ingredients_id])
 }
