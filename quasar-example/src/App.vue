@@ -1,6 +1,7 @@
 <template>
   <router-view />
-</template>
+  </template>
+
 
 <script>
 import { defineComponent } from 'vue'

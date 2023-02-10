@@ -1,5 +1,11 @@
 <template>
+
   <q-layout view="lHh Lpr lFf">
+    <Popup
+            v-if="popupTriggers.buttonTrigger"
+            :TogglePopup="() => TogglePopup('buttonTrigger')">
+            <h2>Login page</h2>
+          </Popup>
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -14,6 +20,14 @@
         <q-toolbar-title>
           Quasar App
         </q-toolbar-title>
+
+
+            <q-btn
+              to="/login"
+              icon="login"
+              size="6px"
+              pading-right="4px"
+            />
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
@@ -42,12 +56,15 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { defineComponent, ref } from 'vue';
+import EssentialLink from 'components/EssentialLink.vue';
+import Popup from 'components/login.vue';
+
 
 const linksList = [
   {
@@ -102,6 +119,14 @@ export default defineComponent({
   },
 
   setup () {
+    const popupTriggers = ref({
+      buttonTrigger: false
+    })
+
+    const TogglePopup = (trigger) => {
+      popupTriggers.value[trigger] = !popupTriggers.value[trigger]
+    }
+
     const leftDrawerOpen = ref(false)
 
     return {
@@ -109,8 +134,16 @@ export default defineComponent({
       leftDrawerOpen,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+
+      },
+      Popup,
+      popupTriggers,
+      TogglePopup
+
     }
   }
 })
 </script>
+
+<style>
+</style>
