@@ -1,11 +1,11 @@
 -- CreateTable
 CREATE TABLE "Recipes" (
-    "id" SERIAL NOT NULL,
+    "recid" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "link" TEXT NOT NULL,
     "picture" TEXT NOT NULL,
 
-    CONSTRAINT "Recipes_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Recipes_pkey" PRIMARY KEY ("recid")
 );
 
 -- CreateTable
@@ -27,7 +27,7 @@ CREATE TABLE "Users" (
 
 -- CreateTable
 CREATE TABLE "Liked" (
-    "user_id" INTEGER NOT NULL,
+    "user_id" SERIAL NOT NULL,
     "recipe_id" INTEGER NOT NULL,
 
     CONSTRAINT "Liked_pkey" PRIMARY KEY ("user_id","recipe_id")
@@ -45,13 +45,13 @@ CREATE TABLE "Ing_In_Rec" (
 CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
 
 -- AddForeignKey
-ALTER TABLE "Liked" ADD CONSTRAINT "Liked_recipe_id_fkey" FOREIGN KEY ("recipe_id") REFERENCES "Recipes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Liked" ADD CONSTRAINT "Liked_recipe_id_fkey" FOREIGN KEY ("recipe_id") REFERENCES "Recipes"("recid") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Liked" ADD CONSTRAINT "Liked_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Ing_In_Rec" ADD CONSTRAINT "Ing_In_Rec_recipe_id_fkey" FOREIGN KEY ("recipe_id") REFERENCES "Recipes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Ing_In_Rec" ADD CONSTRAINT "Ing_In_Rec_recipe_id_fkey" FOREIGN KEY ("recipe_id") REFERENCES "Recipes"("recid") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Ing_In_Rec" ADD CONSTRAINT "Ing_In_Rec_ingredients_id_fkey" FOREIGN KEY ("ingredients_id") REFERENCES "Ingredients"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

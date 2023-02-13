@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Recipes {
-  id         Int          @id @default(autoincrement())
+  recid      Int          @id @default(autoincrement())
   name       String //@default(now())
   link       String //@updatedAt
   picture    String
@@ -46,10 +46,10 @@ model Users {
 }
 
 model Liked {
-  user_id   Int //@default(autoincrement())
+  user_id   Int @default(autoincrement())
   recipe_id Int
 
-  recipes Recipes @relation(fields: [recipe_id], references: [id])
+  recipes Recipes @relation(fields: [recipe_id], references: [recid])
   users   Users   @relation(fields: [user_id], references: [id])
 
   // name    String?
@@ -63,7 +63,7 @@ model Ing_In_Rec {
   recipe_id      Int
   ingredients_id Int
 
-  recipes     Recipes     @relation(fields: [recipe_id], references: [id])
+  recipes     Recipes     @relation(fields: [recipe_id], references: [recid])
   ingredients Ingredients @relation(fields: [ingredients_id], references: [id])
 
   @@id([recipe_id, ingredients_id])
