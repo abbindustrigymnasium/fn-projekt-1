@@ -1,57 +1,44 @@
 <template>
 
-  <q-layout view="lHh Lpr lFf">
-    <Popup
+  <q-layout view="lHh Lpr lFf" >
+    <!-- <Popup
             v-if="popupTriggers.buttonTrigger"
             :TogglePopup="() => TogglePopup('buttonTrigger')">
             <h2>Login page</h2>
-          </Popup>
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+          </Popup> -->
+    <q-header elevated >
+      <q-toolbar color="deep-orange">
+
 
         <q-toolbar-title>
           Quasar App
         </q-toolbar-title>
 
-
+          <div class="headerbutton">
             <q-btn
               to="/login"
-              icon="login"
-              size="6px"
-              pading-right="4px"
+              label="login"
+              text-color="white"
+              size="10px"
+              color="deep-orange"
             />
+          </div>
 
-        <div>Quasar v{{ $q.version }}</div>
+
+          <div class="headerbutton">
+            <q-btn
+              to="/signup"
+              label="signup"
+              text-color="white"
+              size="10px"
+              color="deep-orange"
+            />
+          </div>
+
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -146,4 +133,7 @@ export default defineComponent({
 </script>
 
 <style>
+.headerbutton{
+  padding-right: 9px;
+}
 </style>
